@@ -32,7 +32,7 @@ public class MockChrevTzyonApiClient {
             return targets;
 
         } catch (Exception e) {
-            System.err.println("Error: " + e.getMessage());
+            System.err.println("Erreur : " + e.getMessage());
         }
 
 
@@ -45,8 +45,31 @@ public class MockChrevTzyonApiClient {
      * @return boolean
      */
     public boolean addTarget(Target target) {
-        //TODO : Implement this method
-        return false;
+        try {
+            JSONObject json = new JSONObject();
+            json.put("code_name", target.getCodeName());
+            json.put("name", target.getName());
+            String jsonBody = json.toString();
+
+            HttpResponse<String> response = HttpRequestBuilder.post(
+                    cm.getProperty("api.url") + "/target/add",
+                    jsonBody
+            );
+
+            if (response.statusCode() == 200) {
+                JSONObject responseBody = (JSONObject) parser.parse(response.body());
+                String generatedHash = (String) responseBody.get("hash");
+
+                target.setHash(generatedHash);
+
+                return true;
+            }
+
+        } catch (Exception e) {
+            System.err.println("Erreur : " + e.getMessage());
+        }
+
+        return false ;
     }
 
     /**
@@ -55,7 +78,23 @@ public class MockChrevTzyonApiClient {
      * @return boolean
      */
     public boolean deleteTarget(Target target) {
-        //TODO : Implement this method
+        try {
+            String url = cm.getProperty("api.url") + "/target/" + target.getHash();
+
+            HttpResponse<String> response = HttpRequestBuilder.delete(url);
+
+            if (response.statusCode() == 204) {
+                return true;
+            } else if (response.statusCode() == 404) {
+                System.err.println("Erreur : Target introuvable  reponse 404");
+            } else {
+                System.err.println("Erreur: Code de reponse autre que 204 ou 404: " + response.statusCode());
+            }
+
+        } catch (Exception e) {
+            System.err.println("Erreur: " + e.getMessage());
+        }
+
         return false;
     }
 

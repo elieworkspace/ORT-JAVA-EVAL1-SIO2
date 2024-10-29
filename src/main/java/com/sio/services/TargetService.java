@@ -22,8 +22,10 @@ public class TargetService {
      *
      */
     public ArrayList<Target> getTargets() {
-      //TODO implements this method
-        return new ArrayList<>();
+        //TODO implements this method
+
+        // Retourn une arraylist pour chaqun avec  le nom, le code name, et le nombre de position.
+        return tRepository.findAll();
     }
 
     /**
@@ -42,6 +44,14 @@ public class TargetService {
      */
     public void deleteTarget(Target t) {
         //TODO implements this method
+
+        // Supression via API
+        MockChrevTzyonApiClient APIService = new MockChrevTzyonApiClient();
+        APIService.deleteTarget(t);
+
+        // Suppresion dans MySQL :
+        TargetRepository targetRepository = new TargetRepository();
+        targetRepository.delete(t);
     }
 
 }

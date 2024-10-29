@@ -104,4 +104,21 @@ public class PositionRepository {
             }
         }
     }
+
+
+    public int countPositionsByTargetHash(String hash) {
+        int count = 0;
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement pSt = connection.prepareStatement("SELECT COUNT(*) FROM position WHERE targetHash = ?")) {
+            pSt.setString(1, hash);
+            ResultSet rs = pSt.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+        return count;
+    }
+
 }
