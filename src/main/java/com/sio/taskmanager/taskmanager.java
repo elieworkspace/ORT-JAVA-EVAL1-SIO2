@@ -1,4 +1,4 @@
-package com.sio.initialization;
+package com.sio.taskmanager;
 
 import com.sio.apis.MockChrevTzyonApiClient;
 import com.sio.models.Position;
@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
 
-public class initialization {
+public class taskmanager {
 
     public static void main(String[] args) {
 

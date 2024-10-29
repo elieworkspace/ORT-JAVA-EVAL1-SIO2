@@ -1,3 +1,8 @@
+### Prerequis de l'éxécution
+1. Il est possible d'executer le taskmanager qui met a jour la db automatiquement 
+2. Il est aussi possible de le faire via le choix (2)
+3. Il est possible de lancer les 2 en meme temps afin de mettre automatiquement a jour la db. 
+
 ![separe](https://raw.githubusercontent.com/studoo-app/.github/main/profile/studoo-banner-logo.png)
 # JAVA EVAL1 SIO 2 : Récupération et historisation de données satellitaires
 [![Version](https://img.shields.io/badge/Version-2024-blue)]()
